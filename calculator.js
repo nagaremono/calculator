@@ -1,7 +1,6 @@
 "use strict"
 
-const buttons = document.querySelector('.buttons')
-const display = document.querySelector('.display')
+const BUTTONSSECTION = document.querySelector('.buttons')
 
 let numbers = []
 let operators = []
@@ -12,15 +11,30 @@ for (let i = 0; i < 10; i++) {
   button.textContent = `${i}`
   button.setAttribute('id', `${i}`)
 
-  buttons.appendChild(button)
+  BUTTONSSECTION.appendChild(button)
 }
+
+const buttons = document.querySelectorAll('button')
+
+buttons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    show(e.target.id)
+  })
+})
 
 const numberButton = document.querySelectorAll('.number')
 
 numberButton.forEach((number) => {
   number.addEventListener('click', (e) => {
-    numbers.push(number.id)
-    display.innerHTML = `${number.id}`
+    numbers.push(e.target.id)
+  })
+})
+
+const operatorButton = document.querySelectorAll('.operator')
+
+operatorButton.forEach((operator) => {
+  operator.addEventListener('click', (e) => {
+    operators.push(e.target.id)
   })
 })
 
@@ -45,4 +59,9 @@ function operate(operator, a, b) {
   if (operator === '-') return subtract(a, b)
   if (operator === '*') return multiply(a, b)
   if (operator === '/') return divide(a, b)
+}
+
+function show(item) {
+  let display = document.querySelector('.display')
+  display.innerHTML = item
 }
