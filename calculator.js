@@ -38,6 +38,16 @@ operatorButton.forEach((operator) => {
   })
 })
 
+const clearButton = document.querySelector('.clear')
+
+clearButton.addEventListener('click', () => {
+  numbers = []
+  operators = []
+  let display = document.querySelector('.display')
+  display.innerHTML = ''
+})
+
+
 function add(a, b) {
   return a + b
 }
