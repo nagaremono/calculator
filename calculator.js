@@ -4,6 +4,7 @@ const BUTTONSSECTION = document.querySelector('.buttons')
 
 let numbers = []
 let operators = []
+let evaluation = 0
 
 for (let i = 0; i < 10; i++) {
   let button = document.createElement('button')
@@ -18,7 +19,9 @@ const buttons = document.querySelectorAll('button')
 
 buttons.forEach((button) => {
   button.addEventListener('click', (e) => {
-    show(e.target.id)
+    if (e.target.id !== '=' || e.target.id !== 'c') {
+      show(e.target.id)
+    }
   })
 })
 
@@ -47,6 +50,21 @@ clearButton.addEventListener('click', () => {
   display.innerHTML = ''
 })
 
+const equalsButton = document.querySelector('.equals')
+
+equalsButton.addEventListener('click', evaluate)
+equalsButton.addEventListener('click', (e) => {
+  show(evaluation)
+})
+
+
+function evaluate() {
+  let i = 0
+  evaluation = 
+    numbers.reduce((total, number) => {
+      return operate(operators[i++], +total, +number)
+  })
+}
 
 function add(a, b) {
   return a + b
@@ -65,6 +83,7 @@ function divide(a, b) {
 }
 
 function operate(operator, a, b) {
+  
   if (operator === '+') return add(a, b)
   if (operator === '-') return subtract(a, b)
   if (operator === '*') return multiply(a, b)
