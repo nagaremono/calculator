@@ -1,5 +1,16 @@
 "use strict"
 
+const buttons = document.querySelector('.buttons')
+
+for (let i = 0; i < 10; i++) {
+  let button = document.createElement('button')
+  button.classList.add(`${i}`)
+  button.textContent = `${i}`
+
+  buttons.appendChild(button)
+}
+
+
 function add(a, b) {
   return a + b
 }
