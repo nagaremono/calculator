@@ -2,7 +2,7 @@
 
 let numbers = []
 let operators = []
-let evaluation = 0
+let evaluation = []
 let temp = []
 
 for (let i = 0; i < 10; i++) {
@@ -26,8 +26,8 @@ numberButton.forEach((number) => {
 const operatorButton = document.querySelectorAll('.operator')
 operatorButton.forEach((operator) => {
   operator.addEventListener('click', (e) => {
-    operators.push(e.target.id)
-    numbers.push(temp.join(''))
+    if (e.target.id !== '=') operators.push(e.target.id)
+    numbers.push(temp.join(''))    
     temp = []
     show(e.target.id)
   })
@@ -38,34 +38,58 @@ clearButton.addEventListener('click', () => {
   temp = []
   numbers = []
   operators = []
+  evaluation = []
   show('')
 })
 
-const equalsButton = document.querySelector('.equals')
-equalsButton.addEventListener('click', (e) => {
-  numbers.push(temp.join(''))
-})
-equalsButton.addEventListener('click', evaluate)
+document.getElementById("=").addEventListener('click', evaluate)
 
 function evaluate() {
+  // counter for iterating through operators
   let i = 0
-  evaluation = 
-    numbers.reduce((total, number) => {
-      return operate(operators[i++], +total, +number)
+
+  // evaluate multiplication and division first
+  numbers.reduce((total, number, currentIndex) => {
+    if (operators[i] === '*' || operators[i] === '/') {
+      let tempEval = operate(operators[i++], total, number)
+      evaluation.push(tempEval)
+      return tempEval
+    } else if (operators[i] === '+' || operators[i] === '-') {
+      // Makes sure the first and last number is included 
+      if (!numbers[currentIndex + 1]) evaluation.push(number)
+      if (currentIndex === 1) evaluation.push(total)
+      i++
+      return number
+    }
   })
-  show(evaluation)
+
+  operators = operators.filter((operator) => {
+    return (operator === '+' || operator === '-')
+  })
+  
+  i = 0
+  let finalResult = evaluation.reduce((total, number) => {
+      if (operators.length === 0) return evaluation[evaluation.length - 1]
+      else return operate(operators[i++], total, number)
+    })
+
+  show(finalResult)
+  evaluation = []
+  operators = []
+  numbers = []
+  temp = [finalResult]
 }
 
 function operate(operator, a, b) {  
   switch (operator) {
     case '+':
-      return a + b
+      return +a + +b
     case '-':
-      return a - b
+      return +a - +b
     case '*':
-      return a * b
+      return +a * +b
     case '/':
-      return a / b
+      return +a / +b
   }
 }
 
