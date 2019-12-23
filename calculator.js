@@ -15,16 +15,14 @@ for (let i = 0; i < 10; i++) {
   BUTTONSSECTION.appendChild(button)
 }
 
-const numberButton = document.querySelectorAll('.number')
-numberButton.forEach((number) => {
+document.querySelectorAll('.number').forEach((number) => {
   number.addEventListener('click', (e) => {
     temp.push(e.target.id)
     show(temp.join(''))    
   })
 })
 
-const operatorButton = document.querySelectorAll('.operator')
-operatorButton.forEach((operator) => {
+document.querySelectorAll('.operator').forEach((operator) => {
   operator.addEventListener('click', (e) => {
     if (e.target.id !== '=') operators.push(e.target.id)
     numbers.push(temp.join(''))    
@@ -33,8 +31,7 @@ operatorButton.forEach((operator) => {
   })
 })
 
-const clearButton = document.querySelector('.clear')
-clearButton.addEventListener('click', () => {
+document.querySelector('.clear').addEventListener('click', () => {
   temp = []
   numbers = []
   operators = []
@@ -63,6 +60,12 @@ function evaluate() {
     }
   })
 
+  if (evaluation.length === 2) {
+    let temp = evaluation[0]
+    evaluation[0] = evaluation[1]
+    evaluation[1] = temp
+  }
+  
   operators = operators.filter((operator) => {
     return (operator === '+' || operator === '-')
   })
