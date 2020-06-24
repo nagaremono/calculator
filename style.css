@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,6 +10,7 @@ body {
   grid-template-rows: repeat(5, 1fr);
   width: 100%;
   height: 100vh;
+  background-color: #2a2a2a;
 }
 
 .calculator {
@@ -24,6 +26,12 @@ body {
 .display {
   grid-row: 1;
   grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border: 10px #616161 solid;
+  background-color: #ffffff;
+  font-size: 70px;
 }
 
 .buttons {
@@ -32,4 +40,58 @@ body {
   grid-template-rows: repeat(4, 1fr);
   grid-column: 1 / -1;
   grid-row: 2 / -1;
+  gap: 15px 20px;
+  background-color: #888888;
+  border: 10px #616161 solid;
+}
+
+.zero {
+  grid-column: 3;
+  grid-row: -2;
+}
+
+.one, .two, .three {
+  grid-row: -3;
+}
+
+.one, .four, .seven {
+  grid-column: 2;
+}
+
+.two, .five, .eight {
+  grid-column: 3;
+}
+
+.three, .six, .nine {
+  grid-column: 4;
+}
+
+.four, .five, .six {
+  grid-row: -4;
+}
+
+.seven, .eight, .nine {
+  grid-row: 1;
+}
+
+.multiply,
+.divide,
+.minus,
+.plus {
+  grid-column: 1;
+}
+
+.equals {
+  grid-row: -2;
+  grid-column: -2;
+}
+
+.clear {
+  grid-row: 2 / span 2;
+  grid-column: -2;
+}
+
+button {
+  font-size: 48px;
+  padding: 25px;
 }

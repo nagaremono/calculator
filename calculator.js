@@ -4,11 +4,13 @@ let numbers = []
 let operators = []
 let evaluation = []
 let temp = []
+const marker = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 for (let i = 0; i < 10; i++) {
   let BUTTONSSECTION = document.querySelector('.buttons')
   let button = document.createElement('button')
   button.classList.add('number')
+  button.classList.add(marker[i])
   button.textContent = `${i}`
   button.setAttribute('id', `${i}`)
 
